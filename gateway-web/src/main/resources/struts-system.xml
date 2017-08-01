@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="system" namespace="/system" extends="general-default">
+		<action name="dataCycle_*" class="dataCycleAction" method="{1}">
+			<result name="dataCycleConfig">/system/dataCycle/dataCycleConfig.jsp</result>
+		</action>
+		
+		<action name="local_*" class="localFtpConfigAction" method="{1}">
+			<result name="localFtpConfig">/system/localFtp/localFtpConfig.jsp</result>
+		</action>
+		
+		<action name="func_*" class="funcAction" method="{1}">
+			<result name="frameMenu">/FrameMenu.jsp</result>
+			<result name="frameMain">/FrameMain.jsp</result>
+		</action>
+		
+		<action name="workPlan_*" class="workPlanAction" method="{1}">
+		    <result name="verify">/system/user/signUpVerify.jsp</result>
+		    <result name="cancelUserVerify">/system/user/cancelUserVerify.jsp</result>
+		    <result name="cancelUserBack">/system/user/cancelUserBack.jsp</result>
+		    <result name="signBack">/system/user/signUpBack.jsp</result>
+			<result name="workList">/system/workPlan/workPlanList.jsp</result>
+			<result name="dealAreadyWorkList">/system/workPlan/dealAreadyWorkPlanList.jsp</result>
+			<result name="workPlanDetail">/system/workPlan/workPlanDetail.jsp</result>
+			<result name="userAuthPage">/system/user/userAuthPage.jsp</result>
+			<result name="dataUserAuthPage">/system/user/dataUserAuthPage.jsp</result>
+			<result name="findUserAuditByParam">/system/workPlan/findUserAuditByParam.jsp</result>
+			<result name="updateUserVerify">/system/user/updateUserVerify.jsp</result>
+			<result name="updateUserBack">/system/user/updateUserBack.jsp</result>
+			<result name="serviceInfoAppVerify">/model/serviceInfoAppVerify.jsp</result>
+			<result name="serviceInfoBack">/model/serviceInfoBack.jsp</result>
+			<result name="dataAppBack">/model/dataAppBack.jsp</result>
+			<result name="ruleCheckAudit">/model/ruleCheckAudit.jsp</result>
+			<result name="ruleCheckAuditBack">/model/ruleCheckAuditBack.jsp</result>
+			<result name="ruleCheckResend">/model/ruleCheckResend.jsp</result>
+			<result name="ruleCheckResendFailure">/model/ruleCheckResendFailure.jsp</result>
+			<result name="revokeWorkPlanList">/system/workPlan/revokeWorkPlanList.jsp</result>
+			<result name="ftpUserNotice">/system/user/ftpVUserNotice.jsp</result>
+			<result name="pushResult">/model/pushResult.jsp</result>
+			<result name="dataClean">/system/dataCycle/dataClean.jsp</result>
+			<result name="sysBackError">/error/sysBackError.jsp</result>
+			<result name="serviceFetchAudit">/model/serviceFetchAudit.jsp</result>		
+			<result name="ruleInfo">/model/ruleInfo.jsp</result>
+			<result name="newTaskConfirm">/model/newTaskConfirm.jsp</result>
+			<result name="fetchApplySuccess">/model/fetchApplySuccess.jsp</result>																						<result name="webserviceRuleCheck">/model/webserviceRuleCheck.jsp</result>											</action>
+		
+		<action name="desenModel_*" class="desenModelAction" method="{1}">
+			<result name="desenServiceInfoList">/system/desen/desenServiceInfoList.jsp</result>
+			<result name="searchModelServiceDesenInfo">/system/desen/searchModelServiceDesenInfo.jsp</result>
+			<result name="desenServiceFieldList">/system/desen/desenServiceFieldList.jsp</result>
+			<result name="desenRuleServiceField">/system/desen/desenRuleServiceField.jsp</result>
+			<result name="addServiceAndFetch">/model/addServiceAndFetch.jsp</result>
+		</action>
+		
+		<action name="role_*" class="roleAction" method="{1}">
+			<result name="roleList">/system/role/searchRoleList.jsp</result>
+			<result name="updateRole">/system/role/updateRole.jsp</result>
+			<result name="roleAuth">/system/role/roleAuth.jsp</result>
+			<result name="searchRoleDetail">/system/role/searchRoleDetail.jsp</result>
+		</action>
+		<action name="org_*" class="orgAction" method="{1}">
+			<result name="orgList">/system/org/searchOrgList.jsp</result>
+			<result name="searchOrgDetail">/system/org/searchOrgDetail.jsp</result>
+			<result name="updateOrgPage">/system/org/updateOrgPage.jsp</result>
+		</action>
+			
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="searchUserList">/system/user/searchUserList.jsp</result>
+			<result name="updateUser">/system/user/updateUser.jsp</result>
+			<result name="searchUserDetail">/system/user/searchUserDetail.jsp</result>
+			<result name="userAuthPage">/system/user/userAuthPage.jsp</result>
+			<result name="dataUserAuthPage">/system/user/dataUserAuthPage.jsp</result>
+			<result name="userTypeList">/system/user/userTypeList.jsp</result>
+			<result name="userTypeFuncAuth">/system/user/userTypeFuncAuth.jsp</result>
+			<result name="userTypeFuncDetail">/system/user/userTypeFuncDetail.jsp</result>
+		</action>
+		
+		<action name="operLog_*" class="operateLogAction" method="{1}">
+			<result name="logList">/system/log/logList.jsp</result>
+		</action>
+		
+		<action name="gwUser_*" class="gwUserAction" method="{1}">
+			<result name="fileEncryPwd">/system/user/fileEncryPwd.jsp</result>
+		</action>
+		
+		<action name="liability_*" class="liabilityAction" method="{1}">
+			<result name="searchLiabilityLogList">/system/log/searchLiabilityLogList.jsp</result>
+			<result name="searchLiabilityLog">/system/log/searchLiabilityLog.jsp</result>
+			<result name="searchDesenList">/system/log/searchDesenList.jsp</result>
+		</action>
+		
+		<action name="config_*" class="configAction" method="{1}">
+			<result name="updateJobTimer">/system/config/updateJobTimer.jsp</result>
+			<result name="rePushCountConfig">/system/config/rePushCountConfig.jsp</result>
+		</action>
+		
+		<action name="file_*" class="fileAction" method="{1}">
+		</action>
+		
+		<action name="sms_*" class="smsAction" method="{1}">
+			<result name="smsList">/system/sms/searchSmsList.jsp</result>
+		</action>
+		
+		<action name="notice_*" class="noticeAction" method="{1}">
+			<result name="notice">/system/notice/notice.jsp</result>
+			<result name="noticeList">/system/notice/noticeList.jsp</result>
+			<result name="updateNotice">/system/notice/updateNotice.jsp</result>
+			<result name="addNotice">/system/notice/addNotice.jsp</result>
+		</action>
+		
+		<action name="doc_*" class="docHelpAction" method="{1}">
+			<result name="doc">/system/doc/doc.jsp</result>
+			<result name="docList">/system/doc/docList.jsp</result>
+			<result name="updateDoc">/system/doc/updateDoc.jsp</result>
+			<result name="addDoc">/system/doc/addDoc.jsp</result>
+		</action>
+		<action name="process_*" class="processAction" method="{1}">
+			<result name="processList">/system/process/processList.jsp</result>
+			<result name="processOperation">/system/process/processOperation.jsp</result>
+		</action>
+	</package>
+</struts>

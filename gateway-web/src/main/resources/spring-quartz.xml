@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+ 
+    <!-- 离线服务数据申请任务 -->
+	<bean id="dataAppJob" class="com.gztydic.gateway.web.quartz.DataAppJob"></bean>
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="dataAppJobBean" lazy-init="true" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 先结束当前任务再会执行新的任务 -->
+        <property name="concurrent" value="false" />
+        <!-- 调用的类 -->
+        <property name="targetObject">
+            <ref bean="dataAppJob" />
+        </property>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod">
+            <value>doStartJob</value>
+        </property>
+    </bean>
+	<bean id="dataAppCron" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="dataAppJobBean" />
+		</property>
+		<property name="cronExpression">
+			<!-- 每2秒钟 -->
+<!-- 			<value>0/2 * * * * ?</value> -->
+<!-- 			测试，每10分钟跑一次 -->
+			<value>0 0/10 * * * ?</value>
+		</property>
+	</bean>  
+	
+	<!-- 清理过期数据任务 -->
+	<bean id="dataCleanJob" class="com.gztydic.gateway.web.quartz.DataCleanJob"></bean>
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="dataCleanJobBean" lazy-init="true" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 先结束当前任务再会执行新的任务 -->
+        <property name="concurrent" value="false" />
+        <!-- 调用的类 -->
+        <property name="targetObject">
+            <ref bean="dataCleanJob" />
+        </property>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod">
+            <value>doStartJob</value>
+        </property>
+    </bean>
+	<bean id="dataCleanCron" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="dataCleanJobBean" />
+		</property>
+		<property name="cronExpression">
+			<!-- 每天凌晨一点跑一次 -->
+			<value>0 0 1 * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 定时发送短信 -->
+	<bean id="sendSmsJob" class="com.gztydic.gateway.web.quartz.SendSmsJob"></bean>
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="sendSmsJobBean" lazy-init="true" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 先结束当前任务再会执行新的任务 -->
+        <property name="concurrent" value="true" />
+        <!-- 调用的类 -->
+        <property name="targetObject">
+            <ref bean="sendSmsJob" />
+        </property>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod">
+            <value>doStartJob</value>
+        </property>
+    </bean>
+	<bean id="sendSmsCron" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="sendSmsJobBean" />
+		</property>
+		<property name="cronExpression">
+			<!-- 每分钟钟 -->
+			<value>0 0/1 * * * ?</value>
+		</property>
+	</bean>
+	
+    <!-- 总管理类 如果将lazy- init='false'那么容器启动就会执行调度程序  -->
+    <bean id="startQuertz" lazy-init="false" autowire= "no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+ 				<!-- <ref bean="dataAppCron"/>-->
+ 				<ref bean="dataCleanCron"/>
+ 				<ref bean="sendSmsCron"/>  
+            </list>
+        </property>
+    </bean>
+</beans>

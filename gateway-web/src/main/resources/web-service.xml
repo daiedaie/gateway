@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	
+	<!-- system-provider -->
+	<bean id="configServiceImpl" class="com.gztydic.gateway.system.ConfigServiceImpl">
+		<property name="configDAO">
+            <ref bean="configDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="dataCycleServiceImpl" class="com.gztydic.gateway.system.DataCycleServiceImpl">
+		<property name="gwModelDataCycleDAO">
+            <ref bean="gwModelDataCycleDAO"/>
+        </property>
+        <property name="gwModelDataFileDAO">
+            <ref bean="gwModelDataFileDAO"/>
+        </property>
+        <property name="gwModelDataFetchTaskDAO">
+            <ref bean="gwModelDataFetchTaskDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="desenModelServiceImpl" class="com.gztydic.gateway.system.DesenModelServiceImpl">
+		<property name="gwDesenServiceInfoDAO">
+            <ref bean="gwDesenServiceInfoDAO"/>
+        </property>
+        <property name="gwDesenServiceFieldDAO">
+            <ref bean="gwDesenServiceFieldDAO"/>
+        </property>
+        <property name="gwServiceFieldDictDAO">
+            <ref bean="gwServiceFieldDictDAO"/>
+        </property>
+        <property name="workPlanService">
+            <ref bean="workPlanServiceImpl"/>
+        </property>
+        <property name="workPlanParamService">
+            <ref bean="workPlanParamServiceImpl"/>
+        </property>
+        <property name="userService">
+            <ref bean="userServiceImpl"/>
+        </property>
+        <property name="operationLogService">
+            <ref bean="operationLogServiceImpl"/>
+        </property>
+        <property name="serviceService">
+            <ref bean="gwServiceServiceImpl"/>
+        </property>
+        <property name="fetchDAO">
+            <ref bean="gwModelDataFetchDAO"/>
+        </property>
+
+        <property name="uploadFileService">
+            <ref bean="uploadFileServiceImpl"/>
+        </property>
+        <property name="checkRuleDAO">
+            <ref bean="gwServiceCheckRuleDAO"/>
+        </property>
+        <property name="processService">
+            <ref bean="processServiceImpl"/>
+        </property>
+        <property name="processOperationService">
+            <ref bean="processOperationServiceImpl"/>
+        </property>
+
+	</bean>
+	
+	<bean id="funcServiceImpl" class="com.gztydic.gateway.system.FuncServiceImpl">
+		<property name="gwFuncDAO">
+            <ref bean="gwFuncDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="gwOrgServiceImpl" class="com.gztydic.gateway.system.GwOrgServiceImpl">
+		<property name="gwOrgDAO">
+            <ref bean="gwOrgDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="gwServiceServiceImpl" class="com.gztydic.gateway.system.GwServiceServiceImpl">
+		<property name="serviceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="gwUserServiceImpl" class="com.gztydic.gateway.system.GwUserServiceImpl">
+		<property name="gwUserDAO">
+            <ref bean="gwUserDAO"/>
+        </property>
+        <property name="gwOrgDAO">
+            <ref bean="gwOrgDAO"/>
+        </property>
+        <property name="gwOrgService">
+            <ref bean="gwOrgServiceImpl"/>
+        </property>
+        <property name="operationLogService">
+            <ref bean="operationLogServiceImpl"/>
+        </property>
+         <property name="workPlanService">
+            <ref bean="workPlanServiceImpl"/>
+        </property>
+	</bean>
+	
+	<bean id="liabilityServiceImpl" class="com.gztydic.gateway.system.LiabilityServiceImpl">
+		<property name="gwModelLiabilityLogDAO">
+            <ref bean="gwModelLiabilityLogDAO"/>
+        </property>
+        <property name="gwDesenServiceFieldDAO">
+            <ref bean="gwDesenServiceFieldDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="operationLogServiceImpl" class="com.gztydic.gateway.system.OperationLogServiceImpl">
+		<property name="gwOperationLogDAO">
+            <ref bean="gwOperationLogDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="orgServiceImpl" class="com.gztydic.gateway.system.OrgServiceImpl">
+		<property name="gwOrgDAO">
+            <ref bean="gwOrgDAO"/>
+        </property>
+        <property name="gwUserDAO">
+            <ref bean="gwUserDAO"/>
+        </property>
+        <property name="workPlanService">
+            <ref bean="workPlanServiceImpl"/>
+        </property>
+        <property name="workPlanParamService">
+            <ref bean="workPlanParamServiceImpl"/>
+        </property>
+        <property name="gwModifyRecordDAO">
+            <ref bean="gwModifyRecordDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="roleAuthServiceImpl" class="com.gztydic.gateway.system.RoleAuthServiceImpl">
+		<property name="gwFuncDAO">
+            <ref bean="gwFuncDAO"/>
+        </property>
+        <property name="gwRoleDAO">
+            <ref bean="gwRoleDAO"/>
+        </property>
+        <property name="gwRoleFuncDAO">
+            <ref bean="gwRoleFuncDAO"/>
+        </property>
+        <property name="gwServiceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+        <property name="gwRoleServiceDAO">
+            <ref bean="gwRoleServiceDAO"/>
+        </property>
+        <property name="gwButtonDAO">
+            <ref bean="gwButtonDAO"/>
+        </property>
+        <property name="gwRoleButtonDAO">
+            <ref bean="gwRoleButtonDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="roleServiceImpl" class="com.gztydic.gateway.system.RoleServiceImpl">
+		<property name="gwRoleDao">
+            <ref bean="gwRoleDAO"/>
+        </property>
+        <property name="gwFuncDAO">
+            <ref bean="gwFuncDAO"/>
+        </property>
+        <property name="gwRoleServiceDAO">
+            <ref bean="gwRoleServiceDAO"/>
+        </property>
+        <property name="gwButtonDAO">
+            <ref bean="gwButtonDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="serviceDictServiceImpl" class="com.gztydic.gateway.system.ServiceDictServiceImpl">
+		<property name="gwServiceDictDAO">
+            <ref bean="gwServiceDictDAO"/>
+        </property>
+        <property name="gwServiceFieldDictDAO">
+            <ref bean="gwServiceFieldDictDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="uploadFileServiceImpl" class="com.gztydic.gateway.system.UploadFileServiceImpl">
+		<property name="gwUploadFileDAO">
+            <ref bean="gwUploadFileDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="userAuthServiceImpl" class="com.gztydic.gateway.system.UserAuthServiceImpl">
+		<property name="gwRoleDao">
+            <ref bean="gwRoleDAO"/>
+        </property>
+        <property name="gwButtonDAO">
+            <ref bean="gwButtonDAO"/>
+        </property>
+        <property name="gwFuncDAO">
+            <ref bean="gwFuncDAO"/>
+        </property>
+        <property name="gwUserRoleDAO">
+            <ref bean="gwUserRoleDAO"/>
+        </property>
+        <property name="gwUserFuncDAO">
+            <ref bean="gwUserFuncDAO"/>
+        </property>
+        <property name="gwRoleFuncDAO">
+            <ref bean="gwRoleFuncDAO"/>
+        </property>
+        <property name="gwUserButtonDAO">
+            <ref bean="gwUserButtonDAO"/>
+        </property>
+        <property name="gwUserDAO">
+            <ref bean="gwUserDAO"/>
+        </property>
+        <property name="gwServiceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+        <property name="gwUserServiceDAO">
+            <ref bean="gwUserServiceDAO"/>
+        </property>
+        <property name="workPlanService">
+            <ref bean="workPlanServiceImpl"/>
+        </property>
+        <property name="operationLogService">
+            <ref bean="operationLogServiceImpl"/>
+        </property>
+	</bean>
+	
+	<bean id="userButtonServiceImpl" class="com.gztydic.gateway.system.UserButtonServiceImpl">
+		<property name="gwUserButtonDAO">
+            <ref bean="gwUserButtonDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="userServiceImpl" class="com.gztydic.gateway.system.UserServiceImpl">
+		<property name="gwUserDAO">
+            <ref bean="gwUserDAO"/>
+        </property>
+        <property name="gwModifyRecordDAO">
+            <ref bean="gwModifyRecordDAO"/>
+        </property>
+        <property name="workPlanService">
+            <ref bean="workPlanServiceImpl"/>
+        </property>
+        <property name="workPlanParamService">
+            <ref bean="workPlanParamServiceImpl"/>
+        </property>
+	</bean>
+	
+	<bean id="workPlanParamServiceImpl" class="com.gztydic.gateway.system.WorkPlanParamServiceImpl">
+		<property name="gwWorkPlanParamDAO">
+            <ref bean="gwWorkPlanParamDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="workPlanServiceImpl" class="com.gztydic.gateway.system.WorkPlanServiceImpl">
+		<property name="gwWorkPlanDAO">
+            <ref bean="gwWorkPlanDAO"/>
+        </property>
+        <property name="gwUserDAO">
+            <ref bean="gwUserDAO"/>
+        </property>
+        <property name="gwModifyRecordDAO">
+            <ref bean="gwModifyRecordDAO"/>
+        </property>
+        <property name="userService">
+            <ref bean="userServiceImpl"/>
+        </property>
+        <property name="orgService">
+            <ref bean="orgServiceImpl"/>
+        </property>
+        <property name="workPlanParamService">
+            <ref bean="workPlanParamServiceImpl"/>
+        </property>
+        <property name="gwServiceService">
+            <ref bean="gwServiceServiceImpl"/>
+        </property>
+        <property name="desenModelService">
+            <ref bean="desenModelServiceImpl"/>
+        </property>
+	</bean>
+	
+	
+	<!--model-provider  -->
+	<bean id="modelDataAppServiceImpl" class="com.gztydic.gateway.model.ModelDataAppServiceImpl">
+		<property name="gwModelDataFetchDAO">
+            <ref bean="gwModelDataFetchDAO"/>
+        </property>
+        <property name="operationLogService">
+            <ref bean="operationLogServiceImpl"/>
+        </property>
+        <property name="gwServiceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+        <property name="userService">
+            <ref bean="userServiceImpl"/>
+        </property>
+        <property name="gwServiceService">
+            <ref bean="gwServiceServiceImpl"/>
+        </property>
+        <property name="fetchDAO">
+            <ref bean="gwModelDataFetchDAO"/>
+        </property>
+        <property name="workPlanService">
+            <ref bean="workPlanServiceImpl"/>
+        </property>
+        <property name="workPlanParamService">
+            <ref bean="workPlanParamServiceImpl"/>
+        </property>
+        <property name="taskDAO">
+            <ref bean="gwModelDataFetchTaskDAO"/>
+        </property>
+        <property name="gwModelDataFileDAO">
+            <ref bean="gwModelDataFileDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="modelDataTaskServiceImpl" class="com.gztydic.gateway.model.ModelDataTaskServiceImpl">
+		<property name="gwModelDataFetchTaskDAO">
+            <ref bean="gwModelDataFetchTaskDAO"/>
+        </property>
+        <property name="dataDesenDAO">
+            <ref bean="dataGatherDAO"/>
+        </property>
+        <property name="serviceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+        <property name="dataGatherService">
+            <ref bean="dataGatherServiceImpl"/>
+        </property>
+        <property name="gwModelDataFileDAO">
+            <ref bean="gwModelDataFileDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="modelInfoServiceImpl" class="com.gztydic.gateway.model.ModelInfoServiceImpl">
+		<property name="gwModelDAO">
+            <ref bean="gwModelDAO"/>
+        </property>
+        <property name="gwServiceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+	</bean>
+	
+	
+	<!-- gather-provider -->
+	<bean id="dataServiceImpl" class="com.gztydic.gateway.gather.webservice.impl.DataServiceImpl"/>
+	
+	<bean id="dataDesenServiceImpl" class="com.gztydic.gateway.gather.DataDesenServiceImpl"/>
+	<bean id="dataGatherServiceImpl" class="com.gztydic.gateway.gather.DataGatherServiceImpl">
+		<property name="dataDesenService">
+            <ref bean="dataDesenServiceImpl"/>
+        </property>
+        <property name="desenModelService">
+            <ref bean="desenModelServiceImpl"/>
+        </property>
+        <property name="dataService">
+            <ref bean="dataServiceImpl"/>
+        </property>
+        <property name="logService">
+            <ref bean="operationLogServiceImpl"/>
+        </property>
+        <property name="liabilityService">
+            <ref bean="liabilityServiceImpl"/>
+        </property>
+        <property name="serviceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+         <property name="serviceFieldDAO">
+            <ref bean="gwServiceFieldDAO"/>
+        </property>
+         <property name="dataGatherDAO">
+            <ref bean="dataGatherDAO"/>
+        </property>
+	</bean>
+	
+	<!-- gateway-webservice -->
+	<bean id="appServiceImpl" class="com.gztydic.gateway.webservice.impl.AppServiceImpl">
+		<property name="appService">
+            <ref bean="wsAppServiceImpl"/>
+        </property>
+	</bean>
+	
+	<bean id="gatewayServiceImpl" class="com.gztydic.gateway.webservice.impl.GatewayServiceImpl">
+		<property name="gatherService">
+            <ref bean="wsGatewayServiceImpl"/>
+        </property>
+	</bean>
+	
+	<bean id="wsAppServiceImpl" class="com.gztydic.gateway.service.impl.WsAppServiceImpl">
+		<property name="fetchDAO">
+            <ref bean="gwModelDataFetchDAO"/>
+        </property>
+        <property name="serviceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+        <property name="taskDAO">
+            <ref bean="gwModelDataFetchTaskDAO"/>
+        </property>
+        <property name="userDAO">
+            <ref bean="gwUserDAO"/>
+        </property>
+        <property name="dataGatherService">
+            <ref bean="dataGatherServiceImpl"/>
+        </property>
+	</bean>
+	
+	<bean id="wsGatewayServiceImpl" class="com.gztydic.gateway.service.impl.WsGatewayServiceImpl">
+		<property name="taskDAO">
+            <ref bean="gwModelDataFetchTaskDAO"/>
+        </property>
+        <property name="fileDAO">
+            <ref bean="gwModelDataFileDAO"/>
+        </property>
+        <property name="serviceDAO">
+            <ref bean="gwServiceDAO"/>
+        </property>
+        <property name="fieldDAO">
+            <ref bean="gwServiceFieldDAO"/>
+        </property>
+        <property name="modelDAO">
+            <ref bean="gwModelDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="processServiceImpl" class="com.gztydic.gateway.system.ProcessServiceImpl">
+		<property name="processDAO">
+            <ref bean="gwProcessDAO"/>
+        </property>
+	</bean>
+	
+	<bean id="processOperationServiceImpl" class="com.gztydic.gateway.system.ProcessOperationServiceImpl">
+		<property name="processOperationDAO">
+            <ref bean="gwProcessOperationDAO"/>
+        </property>
+	</bean>
+	<bean id="localFtpConfigServiceImpl" class="com.gztydic.gateway.system.LocalFtpConfigServiceImpl">
+		<property name="localFtpConfigDAO">
+            <ref bean="gwLocalFtpConfigDAO"/>
+        </property>
+	</bean>
+</beans>

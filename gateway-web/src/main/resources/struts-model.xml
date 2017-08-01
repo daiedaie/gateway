@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="service" namespace="/service" extends="general-default">
+		<action name="modelDataApp_*" class="modelDataAppAction" method="{1}">
+			<result name="appList">/model/appList.jsp</result>
+			<result name="appInput">/model/app.jsp</result>
+			<result name="appVerify">/model/appVerify.jsp</result>
+			<result name="applyFetch">/model/applyFetch.jsp</result>			
+			<result name="workList">/system/workPlan/workPlanList.jsp</result>
+			<result name="serviceRuleDetail">/model/serviceRuleDetail.jsp</result>
+			<result name="serviceFetchAudit2">/model/serviceFetchAudit2.jsp</result>
+			<result name="oldServiceRuleDetail">/model/oldServiceRuleDetail.jsp</result>
+		</action>
+		
+		<action name="serviceInfo_*" class="serviceInfoAction" method="{1}">
+			<result name="serviceInfo">/model/serviceInfo.jsp</result>
+			<result name="serviceList">/model/searchServiceList.jsp</result>
+			<result name="modelSubList">/model/searchModelSubList.jsp</result>
+			<result name="updateServiceInfo">/model/updateServiceInfo.jsp</result>
+		</action>
+		
+		<action name="modelTask_*" class="modelDataTaskAction" method="{1}">
+			<result name="taskList">/model/taskList.jsp</result>
+			<result name="offlineDataPreview">/model/offlineDataPreview.jsp</result>
+			<result name="onlineDataPreview">/model/onlineDataPreview.jsp</result>
+			<result name="onlineDataView">/model/onlineDataView.jsp</result>
+			<result name="download">/common/FTPDownFile.jsp</result>
+			<result name="ruleCheckPreview">/model/ruleCheckPreview.jsp</result>
+		</action>
+	</package>
+
+</struts>

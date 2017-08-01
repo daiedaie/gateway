@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	
+
+	
+	<!-- 生产机 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@xx.xxx.xx.xx:xxxx:xxxxxxx"></property>  
+		<property name="user" value="xxxxx"></property>  
+		<property name="password" value="xxxxxxxxxx"></property>  
+		<property name="acquireIncrement" value="3"></property>
+		<property name="initialPoolSize" value="3"></property>
+		<property name="maxIdleTime" value="60"></property>
+		<property name="maxPoolSize" value="30"></property>
+		<property name="minPoolSize" value="3"></property>
+		<property name="acquireRetryDelay" value="1000"></property>
+		<property name="acquireRetryAttempts" value="30"></property>
+		<property name="breakAfterAcquireFailure" value="false"></property>
+	</bean>
+	-->
+	
+	<!-- 测试机--> 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@xx.x.xxx.xx:xxxx:rac12c1"></property>  
+		<property name="user" value="xxxxxxxx"></property>  
+		<property name="password" value="xxxxxx"></property>  
+		<property name="acquireIncrement" value="3"></property>
+		<property name="initialPoolSize" value="3"></property>
+		<property name="maxIdleTime" value="60"></property>
+		<property name="maxPoolSize" value="30"></property>
+		<property name="minPoolSize" value="3"></property>
+		<property name="acquireRetryDelay" value="1000"></property>
+		<property name="acquireRetryAttempts" value="30"></property>
+		<property name="breakAfterAcquireFailure" value="false"></property>
+	</bean>
+	
+	
+	<!-- localhost 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>  
+		<property name="user" value="xxxx"></property>  
+		<property name="password" value="xxxx"></property>  
+		<property name="acquireIncrement" value="3"></property>
+		<property name="initialPoolSize" value="3"></property>
+		<property name="maxIdleTime" value="60"></property>
+		<property name="maxPoolSize" value="30"></property>
+		<property name="minPoolSize" value="3"></property>
+		<property name="acquireRetryDelay" value="1000"></property>
+		<property name="acquireRetryAttempts" value="30"></property>
+		<property name="breakAfterAcquireFailure" value="false"></property>
+	</bean> 
+	-->
+	
+	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.C3P0NativeJdbcExtractor" lazy-init="true" /> 
+	<!-- 用于配置oracle的Clob-->
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler">
+        <property name="nativeJdbcExtractor"><ref local="nativeJdbcExtractor"/></property>
+    </bean>
+    
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">	
+       	<property name="dataSource"><ref bean="dataSource" /></property>
+		<property name="mappingLocations">
+			<list>
+            	<value>classpath:com/gztydic/gateway/core/vo/*.hbm.xml</value><!-- 加载hibernate的映射文件*.hbm.xml -->
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+		<!-- 注入oracleLobHandler -->
+		<property name="lobHandler">
+  			<ref local="oracleLobHandler"/>
+		</property>
+	</bean>
+  	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+       	<property name="dataSource"><ref bean="dataSource" /></property>
+  	</bean>    
+    
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property> 
+		<property name="dataSource"><ref bean="dataSource" /></property>
+	</bean>	
+	
+	<!-- ==============================================================BeanNameAutoProxyCreator================================================================================ -->
+	<bean id="BOAutoProxyTrasaction" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">	
+		<property name="proxyTargetClass" value="true"></property>
+		<property name="frozen" value="true"></property>
+		<property name="beanNames">
+			<list>
+				<value>*ServiceImpl</value>	
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>				
+				<value>trasactionMethodPointcutAdvisor</value>
+			</list>
+		</property>
+	</bean>
+    
+	<!-- 事物拦截 -->
+	<bean id="trasactionMethodPointcutAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+		<property name="mappedNames">
+			<list>
+				<value>do*</value>
+				<value>create*</value>
+				<value>save*</value>
+				<value>update*</value>
+				<value>delete*</value>
+				<value>get*</value>
+				<value>find*</value>
+				<value>search*</value>
+				<value>query*</value>
+				<value>*</value>
+			</list>
+		</property>
+		<property name="advice">
+			<ref local="transactionAdvisor" />
+		</property>
+	</bean>
+	
+	<!-- 注册通知器 advisor -->
+	<bean id="transactionAdvisor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager">
+			<ref local="transactionManager"/>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<!-- 注意开发规范：业务bean的业务方法必须为 do* 格式，才能被包含事务！ -->
+				<prop key="do*">PROPAGATION_REQUIRED,-Throwable</prop>	
+				<prop key="create*">PROPAGATION_REQUIRED,-Throwable</prop>
+				<prop key="save*">PROPAGATION_REQUIRED,-Throwable</prop>
+				<prop key="update*">PROPAGATION_REQUIRED,-Throwable</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED,-Throwable</prop>
+				<prop key="get*">PROPAGATION_SUPPORTS</prop>
+                <prop key="find*">PROPAGATION_SUPPORTS</prop>
+                <prop key="search*">PROPAGATION_SUPPORTS</prop>
+                <prop key="query*">PROPAGATION_SUPPORTS</prop>
+                <prop key="check*">PROPAGATION_SUPPORTS</prop>
+                <prop key="*">PROPAGATION_REQUIRED,-Throwable</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

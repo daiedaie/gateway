@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 30M -->
+	<constant name= "struts.multipart.maxSize" value="31457280" />
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.action.extension" value="do" />
+	<constant name="struts.ui.theme" value="simple"/>
+	
+	<!-- struts2全局配置，增加菜单权限验证拦截器 -->
+	<package name="general-default" extends="struts-default">
+		<interceptors>
+			<interceptor name="authInterceptor" class="com.gztydic.gateway.web.interceptor.AuthInterceptor" />
+			<interceptor-stack name="authStack">		
+                <interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="authInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="authStack" />
+    </package>
+    
+	<include file="struts-system.xml"/>
+
+	<include file="struts-model.xml"/>
+
+	<include file="struts-login.xml"/>
+
+</struts>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>gateway</short-name>
+	<uri>/gateway-tags</uri>
+
+	<description>
+		<![CDATA[标签]]>
+	</description>
+	
+    <tag>
+        <name>sysDict</name>
+        <tag-class>com.gztydic.gateway.web.tag.SysDictTag</tag-class>
+		<body-content>empty</body-content>
+		<description>字典取值标签，根据dictCode、dictKey输出dictValue</description>
+        <attribute>
+			<name>dictCode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>字典组编码</description>
+		</attribute>
+        <attribute>
+			<name>dictKey</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>字典key</description>
+		</attribute>
+    </tag>
+    
+    <tag>
+        <name>sysDictList</name>
+        <tag-class>com.gztydic.gateway.web.tag.SysDictListTag</tag-class>
+		<body-content>empty</body-content>
+		<description>字典列表标签，根据tagType输出单选框、复选框、下拉框及默认值</description>
+        <attribute>
+			<name>dictCode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>字典组编码</description>
+		</attribute>
+        <attribute>
+			<name>defaultValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>默认值</description>
+		</attribute>
+		<attribute>
+			<name>tagType</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>标签类型</description>
+		</attribute>
+		<attribute>
+			<name>tagName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>生成标签的name</description>
+		</attribute>
+		<attribute>
+			<name>tagId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>生成标签的id</description>
+		</attribute>    
+	</tag>
+	
+	<tag>
+        <name>page</name>
+        <tag-class>com.gztydic.gateway.web.tag.PageTag</tag-class>
+		<body-content>empty</body-content>
+		<description>分页页码</description>
+        <attribute>
+			<name>pageObject</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>com.gztydic.gateway.core.common.util.PageObject</type>
+			<description>分页对象</description>
+		</attribute>
+        <attribute>
+			<name>linkNumber</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.Integer</type>
+			<description>显示的页码按钮数</description>
+		</attribute>
+	</tag>
+</taglib>

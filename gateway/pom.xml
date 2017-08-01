@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gztydic.gateway</groupId>
+	<artifactId>gateway</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>gateway</name>
+	<description>gateway</description>
+
+	<modules>
+		<module>../gateway-parent</module>
+		<module>../gateway-core</module>
+		
+		<module>../system-api</module>
+		<module>../system-provider</module>
+		<module>../gather-api</module>
+		<module>../gather-provider</module>
+		<module>../model-api</module>
+		<module>../model-provider</module>
+		<module>../general-api</module>
+		<module>../general-provider</module>
+		
+		<module>../gateway-web</module>
+		<module>../gateway-webservice</module>
+		<module>../gateway-gather</module>
+	</modules>
+
+    <build>
+        
+    </build>
+</project>

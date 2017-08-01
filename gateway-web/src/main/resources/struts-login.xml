@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="login" namespace="/" extends="general-default">
+		<action name="register" class="gwUserAction" method="register">
+			<result name="success">/system/user/singup.jsp</result>
+		</action>
+		
+		<action name="addGwUser" class="gwUserAction" method="addGwUser">
+		</action>
+		
+		<action name="login" class="gwUserAction" method="getGwUser">
+		</action>
+		
+		<action name="clear" class="gwUserAction" method="logout">
+			<result name="success" type="redirect">/login.jsp</result>
+		</action>
+		
+		<action name="password" class="gwUserAction" method="updateGwUserByPwd">
+		</action> 
+		
+		<action name="ftpCheck" class="gwUserAction" method="ftpCheck">
+		</action>
+		
+	</package>
+
+
+</struts>

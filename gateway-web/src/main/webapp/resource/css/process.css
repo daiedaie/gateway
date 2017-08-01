@@ -1,0 +1,59 @@
+*{margin: 0;padding: 0;}
+
+ul,li{
+    list-style-type: none;
+}
+
+body{
+    font: 14px/1.2 'microsoft yahei'  ;
+    width: 1000px;
+}
+
+/*步骤流程 style*/
+.steps-list{
+    width: 1000px;
+    height: 35px;
+    overflow: hidden;
+    padding: 20px 0;
+}
+.steps-list li{
+    display: inline-block;
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    width: 125px;
+    text-align: center;
+    position: relative;
+    background:url(../images/step.png) no-repeat  #fff;
+}
+
+.steps-list li.fist{
+    background:url(../images/step-fist.png) no-repeat  #fff;
+    text-indent: -30px;
+}
+.steps-list li.last{
+    background:url(../images/step-last.png) no-repeat  #fff;
+}
+
+.steps-list li.ing{
+    background:url(../images/steping.png) no-repeat  #fff;
+    color: #fff;
+}
+
+.steps-list li.ing.fist{
+    background:url(../images/steping-fist.png) no-repeat  #fff;
+}
+.steps-list li.ing.last{
+    background:url(../images/steping-last.png) no-repeat  #fff;
+}
+.steps-list li.done{
+    background:url(../images/step-done.png) no-repeat  #fff;
+    color: #0e4806;
+}
+
+.steps-list li.done.fist{
+    background:url(../images/step-done-fist.png) no-repeat  #fff;
+}
+.steps-list li.done.last{
+    background:url(../images/step-done-last.png) no-repeat  #fff;
+}
